@@ -38,10 +38,9 @@ class Wrapper:
         self.posts = self.raw["posts"]
 
     def new_post(self, title, body):
-        return requests.post(
+        return self.post_url(
             self.URL+"api/v1/me",
-            headers={'User-Agent':self.user_agent, "Authorization":self.token},
-            data={"data":body, "title":title})
+            {"data":body, "title":title})
 
 
     def get_posts(self, user=None):
