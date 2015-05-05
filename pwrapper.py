@@ -26,16 +26,19 @@ class Wrapper:
         else:
             return requests.get(url, headers={'User-Agent':self.user_agent})
     def post_url(self, url, data):
-        if self.token != None:
+        if self.token == None:
             raise NotAllowed
         else:
-            return requests.post(url,data = data, headers={'User-Agent':self.user_agent, "Authorization":self.token} )
+            return requests.post(url, data = data, headers={'User-Agent':self.user_agent, "Authorization":self.token} )
     def me(self):
         if self.token == None:
             raise NotAllowed
         r = self.get_url(self.URL+"api/v1/me")
         self.raw = json.loads(r.text)
-        self.posts = self.raw["posts"]
+        try:
+            self.posts = self.raw["posts"]
+        except KeyError:
+            self.posts = None
 
     def new_post(self, title, body):
         return self.post_url(

@@ -8,4 +8,4 @@ b.me()
 
 print b.raw
 
-print b.new_post("test", "testtest")
+print b.new_post("test", "testtest").text
